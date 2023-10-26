@@ -1,0 +1,4 @@
+*.sage.py
+*.py
+__pycache__
+.vscode
