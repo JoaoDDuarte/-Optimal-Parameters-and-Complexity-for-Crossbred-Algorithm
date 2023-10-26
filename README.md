@@ -4,6 +4,8 @@ For an overview of the Crossbred algorithm, refer to [the original paper describ
 
 For an overview of the Hybrid F5 algorithm, refer to the [the original paper describing it](https://www.degruyter.com/document/doi/10.1515/JMC.2009.009/html).
 
+For the paper discussing the complexity of the Crossbred algorithm, refer to [the IACR ePrint]().
+
 This SageMath script does the following:
 
 1. Output optimal parameters and complexity for using the Crossbred or Hybrid F5 algorithm to solve a multivariate polynomial system with `n` variables, `m` equations over finite field `q >= 2`.
