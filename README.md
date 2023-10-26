@@ -16,9 +16,9 @@ Furthermore, this does not take memory considerations into account, hence optima
 
 ## Prerequisites
 
-- SageMath (tested on version 9.2 and 9.8)
+- SageMath (tested on version 9.2, 9.8, 10.1)
 
-This script was tested on Arch Linux with kernel 6.0.8-arch1-1 and 6.3.2-arch1-1, so there may be issues with Windows and/or Mac.
+This script was tested on Arch Linux with kernel 6.0.8, 6.3.2 and 6.5.8, so there may be issues with Windows and/or Mac.
 However, this is unlikely.
 
 ## How to run
@@ -85,8 +85,9 @@ sage run.sage -n 50 -m 60 -q 3
 Without any verbosity or debugging options, the script will output the following:
 
 ```
-Finding optimal parameters for n=50, m=60 and q=3...
-Optimal parameters found: c=151124125223864007163, D=9, d=1, k=13
+Finding optimal parameters for crossbred with n=50, m=60 and q=3...
+
+Optimal parameters found: c=142013029084110873643860, D=10, d=1, k=4
 ```
 
 To speed things up, utilise the flag `--min-D` which allows you to specify a minimum value of D. 
