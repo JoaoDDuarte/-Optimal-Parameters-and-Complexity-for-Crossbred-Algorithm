@@ -118,7 +118,6 @@ In short, any small discrepancy in the complexity or parameter selection is most
 
 Furthermore, it may be interesting to also allow to further specify the ranges of `D`, `d`, and `k` with arguments like `min_k`, etc.
 
-## List of Optimal Parameters (under construction)
+## List of Optimal Parameters
 
-CSVs containing precomputed optimal parameters for the Crossbred algorithm for `n=1...200` and `m=2n, n+1, nlogn` and `q=2, 3, 256` can be found in the folder named `optimal_params`.
-The version of these experiments ran with the `--quick` flag are in the folder `optimal_params_quick`
+CSVs containing precomputed optimal parameters for the Crossbred algorithm and Hybrid F5 for `n=1...200` and `m=2n, n+1, nlogn` and `q=2, 3, 7` can be found in the folder named `optimal_params`.
