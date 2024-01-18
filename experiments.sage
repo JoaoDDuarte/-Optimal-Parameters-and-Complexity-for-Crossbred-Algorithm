@@ -14,6 +14,7 @@ from sage.rings.all import ZZ
 from admissibility_and_complexity import (
     crossbred_admissibility_series,
     hybrid_f5_complexity,
+    FXL_complexity
 )
 from utils import (
     get_complexity_list_and_dictionary,
@@ -24,7 +25,8 @@ from utils import (
 
 
 def get_optimal_hybrid_parameters(n, m, q):
-    """Calculate the optimal parameters for the Hybrid F5 algorithm.
+    """
+    Calculate the optimal parameters for the Hybrid F5 algorithm.
 
     :param n: Number of variables.
     :param m: Number of equations.
@@ -49,8 +51,33 @@ def get_optimal_hybrid_parameters(n, m, q):
         return q, 1
 
 
+def get_optimal_FXL_parameters(n, m,q):
+    """
+    Calculates the optimal complexity for FXL.
+
+    :param n: Number of variables.
+    :param m: Number of equations.
+    :return: Complexity and optimal parameters.
+    """
+    complexity = {}
+    for k in range(1, n):
+        c = FXL_complexity(n, m, k, q)
+        complexity[c] = k
+    complexity_list = list(complexity.keys())
+    try:
+        min_c = min(complexity_list)
+        optimal_k = complexity[min_c]
+    except:
+        min_c = 1
+        optimal_k = 1
+    print(f"Optimal parameters found: c={min_c} and k={optimal_k}\n")
+    return min_c, optimal_k
+
+
+
 def get_fes_complexity(n, m, q):
-    """Calculate the complexity for FES.
+    """
+    Calculate the complexity for FES.
 
     :param n: Number of variables.
     :param m: Number of equations.
@@ -66,7 +93,8 @@ def get_fes_complexity(n, m, q):
 def get_optimal_crossbred_parameters(
     n, m, q, min_D=-1, min_d=1, min_k=1, start_searching_at_index=0
 ):
-    """Calculate the optimal parameters for the Crossbred algorithm.
+    """
+    Calculate the optimal parameters for the Crossbred algorithm.
     The optimisation comes from not checking values of D below a certain
     number. These can be circumvented by setting min_d = 1, min_k = 1,
     min_D = -1 and max_D = -1.
@@ -128,9 +156,46 @@ def get_optimal_crossbred_parameters(
                 f" No optimal parameters found for n={n}, m={m} and q={q}, produced error {e}\n"
             )
 
+def get_optimal_FXL_parameters_from_1_till_n(name, max_n, relation, q):
+    """
+    Given a relation between m and n (e.g., m = 2n), for every n from 1 till max_n,
+    calculate the optimal parameters for FXL. Results are displayed
+    on screen and written to a file. If a file is present with the same name, it will
+    append the results.
+
+    TODO: merge this with get_optimal_hybrid_params_from_1_till_n to avoid duplicate code.
+
+    :param name: Name of the file to write the results.
+    :param max_n: Maximum value of n.
+    :param q: Finite field in which the system of multivariate polynomials are defined.
+    :param relation: Relationship between m and n, e.g. 2n.
+    """
+    exists = os.path.exists(name)
+    empty = False
+
+    start = 1
+
+    if exists:
+        if os.stat(name).st_size == 0:
+            empty = True
+        else:
+            start = sum(1 for _ in open(name))
+            print("Resuming experiment...")
+
+        logging.debug(f"\tStarting from n={start}\n")
+
+    with open(name, "a") as output_file:
+        if empty or not exists:
+            output_file.write("n,m,c,k\n")
+        for n in range(start, max_n + 1):
+            m = m_to_n(relation, n)
+            c, k = get_optimal_FXL_parameters(n, m, q)
+            output_file.write(f"{n},{m},{c},{k}\n")
+            logging.debug(f"\tWrote values n={n},m={m},c={c},k={k} to file.\n")
 
 def get_optimal_hybrid_params_from_1_till_n(name, max_n, relation, q):
-    """Given a relation between m and n (e.g., m = 2n), for every n from 1 till max_n,
+    """
+    Given a relation between m and n (e.g., m = 2n), for every n from 1 till max_n,
     calculate the optimal parameters for hybrid F5. Results are displayed
     on screen and written to a file. If a file is present with the same name, it will
     append the results.
@@ -167,7 +232,8 @@ def get_optimal_hybrid_params_from_1_till_n(name, max_n, relation, q):
 
 
 def get_fes_complexity_from_1_till_n(name, max_n, relation, q):
-    """Given a relation between m and n (e.g., m = 2n), for every n from 1 till max_n,
+    """
+    Given a relation between m and n (e.g., m = 2n), for every n from 1 till max_n,
     calculate the complexity for FES. Results are displayed
     on screen and written to a file. If a file is present with the same name, it will
     append the results.
@@ -206,7 +272,8 @@ def get_fes_complexity_from_1_till_n(name, max_n, relation, q):
 def get_optimal_crossbred_params_from_1_till_n(
     name, max_n, relation, q, quick=False, quickest=False
 ):
-    """Given a relation between m and n (e.g., m = 2n), for every n from 1 till max_n,
+    """
+    Given a relation between m and n (e.g., m = 2n), for every n from 1 till max_n,
     calculate the optimal parameters for crossbred. Results are displayed
     on screen and written to a file. If a file is present with the same name, it will
     append the results.

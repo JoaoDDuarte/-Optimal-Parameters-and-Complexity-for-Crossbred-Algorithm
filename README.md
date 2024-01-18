@@ -2,13 +2,18 @@
 ## Description
 For an overview of the Crossbred algorithm, refer to [the original paper describing it](https://hal.archives-ouvertes.fr/hal-01981516/file/2017-372.pdf).
 
-For an overview of the Hybrid F5 algorithm, refer to the [the original paper describing it](https://www.degruyter.com/document/doi/10.1515/JMC.2009.009/html).
+For an overview of the Hybrid F5 algorithm, refer to [the original paper describing it](https://www.degruyter.com/document/doi/10.1515/JMC.2009.009/html).
 
-For the paper discussing the complexity of the Crossbred algorithm, refer to [the IACR ePrint submission]().
+For an overview of the FXL Algorithm, refer to the [the original paper describing it](https://arxiv.org/pdf/1112.6263v1.pdf).
+
+For an overview of FES, refer to the [original paper descriving it](https://eprint.iacr.org/2010/313.pdf).
+
+For the paper discussing the complexity of the Crossbred algorithm, refer to [the IACR ePrint submission](https://eprint.iacr.org/2023/1664.pdf).
+
 
 This SageMath script does the following:
 
-1. Output optimal parameters and complexity for using the Crossbred or Hybrid F5 algorithm to solve a multivariate polynomial system with `n` variables, `m` equations over finite field `q >= 2`.
+1. Output optimal parameters and complexity for using the Crossbred, FES, FXL or Hybrid F5 algorithm to solve a multivariate polynomial system with `n` variables, `m` equations over finite field `q >= 2`.
 2. Runs an experiment which, given a relation between `m` and `n` (e.g., `m = 2n` or `m=nlog n`), for every `n` from 1 till `max_n`, calculates the optimal parameters for either the Crossbred or Hybrid-F5 algorithm. Results are displayed on screen and written to a file.
 
 Note, if `q=2`, it is assumed that we are working in a quotient field (no squares).
@@ -47,7 +52,7 @@ Properties of the multivariate polynomial:
   -q Q, --field Q       Finite field.
   --min-D MIN_D         Minimum value of D (ignored when running experiments as min_D is calculated
                         per iteration).
-  -a {crossbred,hybridf5}, --algorithm {crossbred,hybridf5}
+  -a {crossbred,hybridf5}, --algorithm {crossbred,hybridf5,fes,FXL}
                         Algorithm to calculate the complexity of.
 
 Experiment:
@@ -62,11 +67,12 @@ Experiment:
   -o FILENAME, --filename FILENAME
                         CSV File to save results.
   --quick, --no-quick   Whether to perform an faster version of the experiment (very rarely, may
-                        produce some slightly sub-optimal results). Does not apply to hybrid F5.
+                        produce some slightly sub-optimal results). Does not apply to hybrid F5, 
+                        fes and FXL.
   --quickest, --no-quickest
                         Whether to perform an fastest version of the experiment (may produce some
                         slightly sub-optimal results, takes priority over --quick). Does not apply
-                        to hybrid F5.
+                        to hybrid F5, fes and FXL.
 
 Logging:
   Configure verbosity of logging

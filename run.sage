@@ -21,14 +21,19 @@ from experiments import (
     get_optimal_crossbred_params_from_1_till_n,
     get_optimal_hybrid_parameters,
     get_optimal_hybrid_params_from_1_till_n,
+    get_optimal_FXL_parameters_from_1_till_n,
+    get_optimal_FXL_parameters,
 )
 from utils import parse_args
 
 if __name__ == "__main__":
-    """Entry point for script.
+    """
+    Entry point for script.
 
     :raises Exception: n must be non-negative.
     :raises Exception: q must be larger than 1.
+    :raises Exception: m must be larger than n.
+    :raises Exception: FXL must have q = 2.
     """
     args = parse_args()
 
@@ -51,7 +56,7 @@ if __name__ == "__main__":
         raise Exception(
             f"m={m} cannot be smaller than or equal to n={n} as the multivariate "
             "polynomial system must be overdetermined."
-        )
+        ) 
 
     max_n = args.max_n
     r = args.r
@@ -63,6 +68,7 @@ if __name__ == "__main__":
         raise Exception("n must be larger than 0.")
     if q < 2:
         raise Exception("Finite field must be larger than 1.")
+
     if args.experiment:
         file_name = args.filename
         if not file_name.endswith(".csv"):
@@ -76,6 +82,8 @@ if __name__ == "__main__":
             get_optimal_hybrid_params_from_1_till_n(file_name, max_n, r, q)
         elif algorithm.lower() == "fes":
             get_fes_complexity_from_1_till_n(file_name, max_n, r, q)
+        elif algorithm.lower() == "FXL":
+            get_optimal_FXL_parameters_from_1_till_n(file_name, max_n, r,q)
     else:
         if algorithm.lower() == "crossbred":
             get_optimal_crossbred_parameters(n, m, q, min_D=min_D)
@@ -83,3 +91,5 @@ if __name__ == "__main__":
             get_optimal_hybrid_parameters(n, m, q)
         elif algorithm.lower() == "fes":
             get_fes_complexity(n, m, q)
+        elif algorithm.lower() == "FXL":
+            get_optimal_FXL_parameters(file_name, max_n, r,q)

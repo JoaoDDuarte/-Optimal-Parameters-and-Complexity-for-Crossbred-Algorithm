@@ -15,7 +15,8 @@ from admissibility_and_complexity import crossbred_complexity, degree_of_regular
 
 
 def is_admissible_crossbred(admis, D, d, k):
-    """Determines whether parameters D, d and k are admissible.
+    """
+    Determines whether parameters D, d and k are admissible.
 
     :param admis: Admissibility generating series.
     :param D: Degree of Macaulay Matrix,
@@ -31,7 +32,8 @@ def is_admissible_crossbred(admis, D, d, k):
 
 
 def m_to_n(relation, n):
-    """Converts a string indicating the relationship between m and n
+    """
+    Converts a string indicating the relationship between m and n
     to an actual number.
 
     :param relation: Relationship between m and n, e.g. 2n.
@@ -97,6 +99,7 @@ def get_complexity_list_and_dictionary(n, m, q, min_k, min_d, min_D):
 def get_starting_position(q, start_searching_at_index, complexity_list_len):
     """
     Get starting position to start searching a list of crossbred complexities for the optimal params/complexity.
+
     :param q: Finite field in which the system of multivariate polynomials are defined.
     :param start_searching_at_index: Where to begin searching for the minimum in the complexity list.
     :param complexity_list_len: Length of the complexity list.
@@ -119,7 +122,8 @@ def get_starting_position(q, start_searching_at_index, complexity_list_len):
 
 
 def parse_args():
-    """Parse arguments.
+    """
+    Parse arguments.
 
     :return: Parsed arguments.
     """
@@ -172,7 +176,7 @@ def parse_args():
         "--algorithm",
         help="Algorithm to calculate the complexity of.",
         type=str,
-        choices=["crossbred", "hybridf5", "fes"],
+        choices=["crossbred", "hybridf5", "fes", "FXL"],
         dest="algorithm",
         default="crossbred",
     )
@@ -218,7 +222,7 @@ def parse_args():
         default=False,
         help="Whether to perform an faster version of the experiment"
         " (very rarely, may produce some slightly sub-optimal results)."
-        " Does not apply to hybrid F5.",
+        " Does not apply to hybrid F5, fes and FXL.",
     )
     group_experiment.add_argument(
         "--quickest",
@@ -227,7 +231,7 @@ def parse_args():
         default=False,
         help="Whether to perform an fastest version of the experiment"
         " (may produce some slightly sub-optimal results, takes priority"
-        " over --quick). Does not apply to hybrid F5.",
+        " over --quick). Does not apply to hybrid F5, fes and FXL.",
     )
     group_logging = parser.add_argument_group(
         "Logging", "Configure verbosity of logging"

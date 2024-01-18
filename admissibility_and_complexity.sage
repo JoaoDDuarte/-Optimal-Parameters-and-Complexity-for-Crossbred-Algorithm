@@ -35,6 +35,40 @@ def degree_of_regularity(n, m, q):
     raise ValueError("BUG: Could not compute the degree of semi-regularity")
 
 
+def d_0(n, m, q):
+    """
+    Calculate the degree when HS falls to 0 (see Bardet et al. )
+
+    :param n: Number of variables.
+    :param m: Number of equations.
+    :param q: Finite field in which the system of multivariate polynomials are defined.
+    :raises Exception: Number of variables must be smaller than the number of equations.
+    :return: Degree when HS falls to 0.
+    """
+
+    degs = [q for _ in range(0, m)]
+    if m <= n:
+        raise ValueError(
+            f"This function requires an overdefined system of polynomials (n={n}, m={m})."
+        )
+
+    from sage.misc.misc_c import prod
+    from sage.rings.power_series_ring import PowerSeriesRing
+    from sage.rings.rational_field import QQ, ZZ
+
+    z = PowerSeriesRing(QQ, "z", default_prec=sum(degs)).gen()
+    if q == 2:
+        s = (1 + z) ** n / prod([1 + z**d for d in degs])
+    else:
+        s = prod([1 - z**d for d in degs]) / (1 - z) ** n
+    s = s * (1-z)**(-1)
+    for dreg in range(sum(degs)):
+        if s[dreg] <= 0:
+            return ZZ(dreg)
+    raise ValueError("BUG: Could not compute the degree.")
+
+
+
 def crossbred_admissibility_series(n, m, k, q, D, d):
     """Returns expanded (up to precision D + d + k) of the admissibility
     generating series. It is assumed that the degree of the polynomial is q.
@@ -124,3 +158,24 @@ def hybrid_f5_complexity(n, m, k, q):
     else:
         bi = binomial(n - k - 1 + deg_reg, deg_reg)
     return q**k * bi**2
+
+def FXL_complexity(n,m,k,q):
+    """
+    Returns complexity of FXL.
+    
+    :param n: Number of variables.
+    :param m: Number of equations.
+    :param k: Number of variables we want our specialised system of multivariate
+        polynomials to have.
+    :param q: Finite field in which the system of multivariate polynomials are defined.
+    :return: Complexity of the FXL algorithm
+    """
+    deg = d_0(n,m,q)
+    if q == 2:
+        s1 = sum([binomial(n-k,i) for i in range(0,deg+1)])**2
+        s2 = (m*sum([binomial(n-k,i) for i in range(0,deg+1)]))**2
+        tc = max(s1, s2)
+    else:
+        tc = max(binomial(deg + n - k, n-k), m*binomial(deg + n - q - k, n-k))
+    return q**k * tc
+    
