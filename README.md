@@ -1,4 +1,9 @@
 # Optimal Parameters and Complexity for Crossbred Algorithm
+
+
+[![DOI](https://zenodo.org/badge/745179880.svg)](https://zenodo.org/doi/10.5281/zenodo.10530200)
+
+
 ## Description
 For an overview of the Crossbred algorithm, refer to [the original paper describing it](https://hal.archives-ouvertes.fr/hal-01981516/file/2017-372.pdf).
 
