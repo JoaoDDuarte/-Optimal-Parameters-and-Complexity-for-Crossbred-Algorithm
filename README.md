@@ -1,6 +1,5 @@
 # Optimal Parameters and Complexity for Crossbred Algorithm
 
-
 [![DOI](https://zenodo.org/badge/745179880.svg)](https://zenodo.org/doi/10.5281/zenodo.10530200)
 
 
