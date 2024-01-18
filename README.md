@@ -29,14 +29,13 @@ However, this is unlikely.
 ## How to run
 
 ```
-usage: run.sage.py [-h] [-n N] [-m M] [-q Q] [--min-D MIN_D] [-a {crossbred,hybridf5}]
-                   [--run-experiment | --no-run-experiment] [-u MAX_N] [-r R] [-o FILENAME]
-                   [--quick | --no-quick] [--quickest | --no-quickest] [-d] [-v]
+usage: run.sage.py [-h] [-n N] [-m M] [-q Q] [--min-D MIN_D] [-a {crossbred,hybridf5,fes,FXL}]
+                   [--run-experiment | --no-run-experiment] [-u MAX_N] [-r R] [-o FILENAME] [--quick | --no-quick]
+                   [--quickest | --no-quickest] [-d] [-v]
 
-Script for obtaining optimal parameters for the Crossbred algorithm and run an experiment which
-finds the optimal parameters for various sizes of multivariate polynomial systems. The various
-accepted arguments allow for different variations of the experiment to be conducted. Note that
-finite field of size 2 is considered to be square-free.
+Script for obtaining optimal parameters for the Crossbred algorithm and run an experiment which finds the optimal
+parameters for various sizes of multivariate polynomial systems. The various accepted arguments allow for different
+variations of the experiment to be conducted. Note that finite field of size 2 is considered to be square-free.
 
 options:
   -h, --help            show this help message and exit
@@ -45,14 +44,13 @@ Properties of the multivariate polynomial:
   Configure the size and field of multivariate polynomial system.
 
   -n N, --num-variables N
-                        Number of variables. If running an experiment, If running an experiment,
-                        this will be treated as the maximum value of n.
+                        Number of variables. If running an experiment, If running an experiment, this will be
+                        treated as the maximum value of n.
   -m M, --num-equations M
                         Number of equations. If running an experiment, this will be ignored.
   -q Q, --field Q       Finite field.
-  --min-D MIN_D         Minimum value of D (ignored when running experiments as min_D is calculated
-                        per iteration).
-  -a {crossbred,hybridf5}, --algorithm {crossbred,hybridf5,fes,FXL}
+  --min-D MIN_D         Minimum value of D (ignored when running experiments as min_D is calculated per iteration).
+  -a {crossbred,hybridf5,fes,FXL}, --algorithm {crossbred,hybridf5,fes,FXL}
                         Algorithm to calculate the complexity of.
 
 Experiment:
@@ -66,13 +64,11 @@ Experiment:
                         Relationship between m and n, such as 2n, n+1 or nlogn.
   -o FILENAME, --filename FILENAME
                         CSV File to save results.
-  --quick, --no-quick   Whether to perform an faster version of the experiment (very rarely, may
-                        produce some slightly sub-optimal results). Does not apply to hybrid F5, 
-                        fes and FXL.
+  --quick, --no-quick   Whether to perform an faster version of the experiment (very rarely, may produce some
+                        slightly sub-optimal results). Does not apply to hybrid F5, fes and FXL.
   --quickest, --no-quickest
-                        Whether to perform an fastest version of the experiment (may produce some
-                        slightly sub-optimal results, takes priority over --quick). Does not apply
-                        to hybrid F5, fes and FXL.
+                        Whether to perform an fastest version of the experiment (may produce some slightly sub-
+                        optimal results, takes priority over --quick). Does not apply to hybrid F5, fes and FXL.
 
 Logging:
   Configure verbosity of logging
@@ -127,4 +123,4 @@ Furthermore, it may be interesting to also allow to further specify the ranges o
 
 ## List of Optimal Parameters
 
-CSVs containing precomputed optimal parameters for the Crossbred algorithm and Hybrid F5 for `n=1...200` and `m=2n, n+1, nlogn` and `q=2, 3, 7` can be found in the folder named `optimal_params`.
+CSVs containing precomputed optimal parameters for the Crossbred, FXL and Hybrid F5 for `n=1...200` and `m=2n, n+1, nlogn` and `q=2, 3, 7` can be found in the folder named `optimal_params`.
